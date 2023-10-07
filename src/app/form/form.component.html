@@ -1,13 +1,12 @@
 <mat-horizontal-stepper linear>
-  <!-- Step 1: Definition -->
   <mat-step [stepControl]="definitionForm" label="Definition">
     <form [formGroup]="definitionForm">
       <div class="step-content">
-        <!-- Description Column -->
         <div class="description">
+          <mat-error class="error">* is required </mat-error>
           <h3>Description</h3>
           <mat-form-field>
-            <mat-label>Marketing Name*</mat-label>
+            <mat-label>Marketing Name</mat-label>
             <input matInput formControlName="marketingName" required />
             <mat-error
               *ngIf="definitionForm.get('marketingName')?.hasError('required')"
@@ -16,7 +15,7 @@
             </mat-error>
           </mat-form-field>
           <mat-form-field>
-            <mat-label>Technical Name*</mat-label>
+            <mat-label>Technical Name</mat-label>
             <input matInput formControlName="technicalName" required />
             <mat-error
               *ngIf="definitionForm.get('technicalName')?.hasError('required')"
@@ -25,7 +24,7 @@
             </mat-error>
           </mat-form-field>
           <mat-form-field>
-            <mat-label>Description*</mat-label>
+            <mat-label>Description</mat-label>
             <textarea
               matInput
               formControlName="description"
@@ -40,11 +39,10 @@
           <p>Catalog promotion tutorial: Lorem ipsum...</p>
         </div>
 
-        <!-- Conditions Column -->
         <div class="conditions">
           <h3>Conditions</h3>
           <mat-form-field>
-            <mat-label>Portal*</mat-label>
+            <mat-label>Portal</mat-label>
             <mat-select formControlName="portal" required>
               <mat-option value="chrome">Chrome</mat-option>
               <mat-option value="firefox">Firefox</mat-option>
@@ -57,7 +55,7 @@
             </mat-error>
           </mat-form-field>
           <mat-form-field>
-            <mat-label>Type*</mat-label>
+            <mat-label>Type</mat-label>
             <mat-select formControlName="type" required>
               <mat-option value="windows">Windows</mat-option>
               <mat-option value="mac">Mac</mat-option>
@@ -67,7 +65,7 @@
             </mat-error>
           </mat-form-field>
           <mat-form-field>
-            <mat-label>Start Date*</mat-label>
+            <mat-label>Start Date</mat-label>
             <input
               matInput
               [matDatepicker]="startDatePicker"
@@ -86,7 +84,7 @@
             </mat-error>
           </mat-form-field>
           <mat-form-field>
-            <mat-label>End Date*</mat-label>
+            <mat-label>End Date</mat-label>
             <input
               matInput
               [matDatepicker]="endDatePicker"
@@ -110,11 +108,7 @@
             >
             <mat-radio-button value="base100">Base price 100%</mat-radio-button>
           </mat-radio-group>
-          <mat-error
-            *ngIf="definitionForm.get('pricing')?.hasError('required')"
-          >
-            * is required
-          </mat-error>
+
           <mat-checkbox formControlName="connectPromotions"
             >Connect with other promotions</mat-checkbox
           >
@@ -123,31 +117,42 @@
           >
         </div>
       </div>
+      <div class="step-actions">
+        <button mat-button matStepperNext>Next</button>
+      </div>
     </form>
   </mat-step>
 
-  <!-- Step 2: Choose products -->
   <mat-step label="Choose products">
     <div class="step-content">
       <mat-checkbox [(ngModel)]="products.lorem">Lorem</mat-checkbox>
       <mat-checkbox [(ngModel)]="products.ipsum">Ipsum</mat-checkbox>
-      <!-- ... other checkboxes ... -->
+      <mat-checkbox [(ngModel)]="products.sit">Sit</mat-checkbox>
+      <mat-checkbox [(ngModel)]="products.dolor">Dolor</mat-checkbox>
+      <mat-checkbox [(ngModel)]="products.amet">Amet</mat-checkbox>
     </div>
     <div class="step-actions">
       <button mat-button matStepperNext>Next</button>
     </div>
   </mat-step>
 
-  <!-- Step 3: Exclude products -->
   <mat-step label="Exclude products">
     <div class="step-content">
-      <mat-checkbox *ngIf="!products.lorem" [(ngModel)]="excludeProducts.lorem"
+      <mat-checkbox *ngIf="products.lorem" [(ngModel)]="excludeProducts.lorem"
         >Lorem</mat-checkbox
       >
-      <mat-checkbox *ngIf="!products.ipsum" [(ngModel)]="excludeProducts.ipsum"
+      <mat-checkbox *ngIf="products.ipsum" [(ngModel)]="excludeProducts.ipsum"
         >Ipsum</mat-checkbox
       >
-      <!-- ... other checkboxes ... -->
+      <mat-checkbox *ngIf="products.sit" [(ngModel)]="excludeProducts.sit"
+        >Sit</mat-checkbox
+      >
+      <mat-checkbox *ngIf="products.dolor" [(ngModel)]="excludeProducts.dolor"
+        >Dolor</mat-checkbox
+      >
+      <mat-checkbox *ngIf="products.amet" [(ngModel)]="excludeProducts.amet"
+        >Amet</mat-checkbox
+      >
     </div>
     <div class="step-actions">
       <button mat-button matStepperNext>Next</button>
@@ -156,17 +161,66 @@
 
   <mat-step label="Bonus Products">
     <div class="step-content">
-      <mat-checkbox *ngIf="!products.lorem" [(ngModel)]="excludeProducts.lorem"
-        >Lorem</mat-checkbox
-      >
-      <mat-checkbox *ngIf="!products.ipsum" [(ngModel)]="excludeProducts.ipsum"
-        >Ipsum</mat-checkbox
-      >
-      <!-- ... other checkboxes ... -->
+      <mat-form-field>
+        <mat-label>Bonus Products</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let product of productsList" [value]="product">
+            {{ product }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
     <div class="step-actions">
       <button mat-button matStepperNext>Next</button>
     </div>
   </mat-step>
-  <!-- ... other steps ... -->
+  <mat-step label="Product Limits">
+    <div class="step-content">
+      <mat-radio-group aria-label="Select an option">
+        <mat-label><b>Product Limits</b></mat-label>
+        <mat-radio-button value="1-50">1-50</mat-radio-button>
+        <mat-radio-button value="50-100">50-100</mat-radio-button>
+        <mat-radio-button value="100-150">100-150</mat-radio-button>
+        <mat-radio-button value="150-200">150-200</mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <div class="step-actions">
+      <button mat-button matStepperNext>Next</button>
+    </div>
+  </mat-step>
+  <mat-step label="Choose Clients">
+    <div class="step-content">
+      <mat-checkbox [(ngModel)]="clients.aaron">Aaron</mat-checkbox>
+      <mat-checkbox [(ngModel)]="clients.bert">Bert</mat-checkbox>
+      <mat-checkbox [(ngModel)]="clients.randy">Randy</mat-checkbox>
+      <mat-checkbox [(ngModel)]="clients.emily">Emily</mat-checkbox>
+      <mat-checkbox [(ngModel)]="clients.anne">Anne</mat-checkbox>
+    </div>
+    <div class="step-actions">
+      <button mat-button matStepperNext>Next</button>
+    </div>
+  </mat-step>
+
+  <mat-step label="Exclude Clients">
+    <div class="step-content">
+      <mat-checkbox *ngIf="clients.aaron" [(ngModel)]="excludeClients.aaron"
+        >Aaron</mat-checkbox
+      >
+      <mat-checkbox *ngIf="clients.bert" [(ngModel)]="excludeClients.bert"
+        >Bert</mat-checkbox
+      >
+      <mat-checkbox *ngIf="clients.randy" [(ngModel)]="excludeClients.randy"
+        >Randy</mat-checkbox
+      >
+      <mat-checkbox *ngIf="clients.emily" [(ngModel)]="excludeClients.emily"
+        >Emily</mat-checkbox
+      >
+      <mat-checkbox *ngIf="clients.anne" [(ngModel)]="excludeClients.anne"
+        >Anne</mat-checkbox
+      >
+    </div>
+    <div class="step-actions">
+      <button mat-button matStepperNext>Next</button>
+    </div>
+  </mat-step>
 </mat-horizontal-stepper>

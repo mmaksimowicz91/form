@@ -1,0 +1,14 @@
+.step-content {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+
+  .description,
+  .conditions {
+    flex: 1;
+  }
+}
+
+.step-actions {
+  margin-top: 20px;
+}

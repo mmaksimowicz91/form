@@ -16,6 +16,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
@@ -34,6 +35,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatRadioModule,
     MatDatepickerModule,
     MatSelectModule,
+    MatNativeDateModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

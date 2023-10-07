@@ -11,13 +11,34 @@ export class FormComponent implements OnInit {
   products = {
     lorem: false,
     ipsum: false,
-    // ... other products ...
+    sit: false,
+    dolor: false,
+    amet: false,
   };
   excludeProducts = {
     lorem: false,
     ipsum: false,
-    // ... other products ...
+    sit: false,
+    dolor: false,
+    amet: false,
   };
+  clients = {
+    aaron: false,
+    bert: false,
+    randy: false,
+    emily: false,
+    anne: false,
+  };
+
+  excludeClients = {
+    aaron: false,
+    bert: false,
+    randy: false,
+    emily: false,
+    anne: false,
+  };
+
+  productsList: string[] = ['Lorem', 'Ipsum', 'Sit', 'Dolor', 'Amet'];
 
   constructor(private fb: FormBuilder) {}
 
