@@ -1,0 +1,172 @@
+<mat-horizontal-stepper linear>
+  <!-- Step 1: Definition -->
+  <mat-step [stepControl]="definitionForm" label="Definition">
+    <form [formGroup]="definitionForm">
+      <div class="step-content">
+        <!-- Description Column -->
+        <div class="description">
+          <h3>Description</h3>
+          <mat-form-field>
+            <mat-label>Marketing Name*</mat-label>
+            <input matInput formControlName="marketingName" required />
+            <mat-error
+              *ngIf="definitionForm.get('marketingName')?.hasError('required')"
+            >
+              * is required
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Technical Name*</mat-label>
+            <input matInput formControlName="technicalName" required />
+            <mat-error
+              *ngIf="definitionForm.get('technicalName')?.hasError('required')"
+            >
+              * is required
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Description*</mat-label>
+            <textarea
+              matInput
+              formControlName="description"
+              required
+            ></textarea>
+            <mat-error
+              *ngIf="definitionForm.get('description')?.hasError('required')"
+            >
+              * is required
+            </mat-error>
+          </mat-form-field>
+          <p>Catalog promotion tutorial: Lorem ipsum...</p>
+        </div>
+
+        <!-- Conditions Column -->
+        <div class="conditions">
+          <h3>Conditions</h3>
+          <mat-form-field>
+            <mat-label>Portal*</mat-label>
+            <mat-select formControlName="portal" required>
+              <mat-option value="chrome">Chrome</mat-option>
+              <mat-option value="firefox">Firefox</mat-option>
+              <mat-option value="opera">Opera</mat-option>
+            </mat-select>
+            <mat-error
+              *ngIf="definitionForm.get('portal')?.hasError('required')"
+            >
+              * is required
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Type*</mat-label>
+            <mat-select formControlName="type" required>
+              <mat-option value="windows">Windows</mat-option>
+              <mat-option value="mac">Mac</mat-option>
+            </mat-select>
+            <mat-error *ngIf="definitionForm.get('type')?.hasError('required')">
+              * is required
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Start Date*</mat-label>
+            <input
+              matInput
+              [matDatepicker]="startDatePicker"
+              formControlName="startDate"
+              required
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="startDatePicker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #startDatePicker></mat-datepicker>
+            <mat-error
+              *ngIf="definitionForm.get('startDate')?.hasError('required')"
+            >
+              * is required
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>End Date*</mat-label>
+            <input
+              matInput
+              [matDatepicker]="endDatePicker"
+              formControlName="endDate"
+              required
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="endDatePicker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #endDatePicker></mat-datepicker>
+            <mat-error
+              *ngIf="definitionForm.get('endDate')?.hasError('required')"
+            >
+              * is required
+            </mat-error>
+          </mat-form-field>
+          <mat-radio-group formControlName="pricing" required>
+            <mat-radio-button value="business"
+              >Business Conditions</mat-radio-button
+            >
+            <mat-radio-button value="base100">Base price 100%</mat-radio-button>
+          </mat-radio-group>
+          <mat-error
+            *ngIf="definitionForm.get('pricing')?.hasError('required')"
+          >
+            * is required
+          </mat-error>
+          <mat-checkbox formControlName="connectPromotions"
+            >Connect with other promotions</mat-checkbox
+          >
+          <mat-checkbox formControlName="backPromotions"
+            >Back promotions</mat-checkbox
+          >
+        </div>
+      </div>
+    </form>
+  </mat-step>
+
+  <!-- Step 2: Choose products -->
+  <mat-step label="Choose products">
+    <div class="step-content">
+      <mat-checkbox [(ngModel)]="products.lorem">Lorem</mat-checkbox>
+      <mat-checkbox [(ngModel)]="products.ipsum">Ipsum</mat-checkbox>
+      <!-- ... other checkboxes ... -->
+    </div>
+    <div class="step-actions">
+      <button mat-button matStepperNext>Next</button>
+    </div>
+  </mat-step>
+
+  <!-- Step 3: Exclude products -->
+  <mat-step label="Exclude products">
+    <div class="step-content">
+      <mat-checkbox *ngIf="!products.lorem" [(ngModel)]="excludeProducts.lorem"
+        >Lorem</mat-checkbox
+      >
+      <mat-checkbox *ngIf="!products.ipsum" [(ngModel)]="excludeProducts.ipsum"
+        >Ipsum</mat-checkbox
+      >
+      <!-- ... other checkboxes ... -->
+    </div>
+    <div class="step-actions">
+      <button mat-button matStepperNext>Next</button>
+    </div>
+  </mat-step>
+
+  <mat-step label="Bonus Products">
+    <div class="step-content">
+      <mat-checkbox *ngIf="!products.lorem" [(ngModel)]="excludeProducts.lorem"
+        >Lorem</mat-checkbox
+      >
+      <mat-checkbox *ngIf="!products.ipsum" [(ngModel)]="excludeProducts.ipsum"
+        >Ipsum</mat-checkbox
+      >
+      <!-- ... other checkboxes ... -->
+    </div>
+    <div class="step-actions">
+      <button mat-button matStepperNext>Next</button>
+    </div>
+  </mat-step>
+  <!-- ... other steps ... -->
+</mat-horizontal-stepper>
