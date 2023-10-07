@@ -4,7 +4,7 @@
       <div class="step-content">
         <div class="description">
           <mat-error class="error">* is required </mat-error>
-          <h3>Description</h3>
+          <h1>Description</h1>
           <mat-form-field>
             <mat-label>Marketing Name</mat-label>
             <input matInput formControlName="marketingName" required />
@@ -40,7 +40,7 @@
         </div>
 
         <div class="conditions">
-          <h3>Conditions</h3>
+          <h1>Conditions</h1>
           <mat-form-field>
             <mat-label>Portal</mat-label>
             <mat-select formControlName="portal" required>
@@ -138,19 +138,19 @@
 
   <mat-step label="Exclude products">
     <div class="step-content">
-      <mat-checkbox *ngIf="products.lorem" [(ngModel)]="excludeProducts.lorem"
+      <mat-checkbox *ngIf="!products.lorem" [(ngModel)]="excludeProducts.lorem"
         >Lorem</mat-checkbox
       >
-      <mat-checkbox *ngIf="products.ipsum" [(ngModel)]="excludeProducts.ipsum"
+      <mat-checkbox *ngIf="!products.ipsum" [(ngModel)]="excludeProducts.ipsum"
         >Ipsum</mat-checkbox
       >
-      <mat-checkbox *ngIf="products.sit" [(ngModel)]="excludeProducts.sit"
+      <mat-checkbox *ngIf="!products.sit" [(ngModel)]="excludeProducts.sit"
         >Sit</mat-checkbox
       >
-      <mat-checkbox *ngIf="products.dolor" [(ngModel)]="excludeProducts.dolor"
+      <mat-checkbox *ngIf="!products.dolor" [(ngModel)]="excludeProducts.dolor"
         >Dolor</mat-checkbox
       >
-      <mat-checkbox *ngIf="products.amet" [(ngModel)]="excludeProducts.amet"
+      <mat-checkbox *ngIf="!products.amet" [(ngModel)]="excludeProducts.amet"
         >Amet</mat-checkbox
       >
     </div>
@@ -203,24 +203,55 @@
 
   <mat-step label="Exclude Clients">
     <div class="step-content">
-      <mat-checkbox *ngIf="clients.aaron" [(ngModel)]="excludeClients.aaron"
+      <mat-checkbox *ngIf="!clients.aaron" [(ngModel)]="excludeClients.aaron"
         >Aaron</mat-checkbox
       >
-      <mat-checkbox *ngIf="clients.bert" [(ngModel)]="excludeClients.bert"
+      <mat-checkbox *ngIf="!clients.bert" [(ngModel)]="excludeClients.bert"
         >Bert</mat-checkbox
       >
-      <mat-checkbox *ngIf="clients.randy" [(ngModel)]="excludeClients.randy"
+      <mat-checkbox *ngIf="!clients.randy" [(ngModel)]="excludeClients.randy"
         >Randy</mat-checkbox
       >
-      <mat-checkbox *ngIf="clients.emily" [(ngModel)]="excludeClients.emily"
+      <mat-checkbox *ngIf="!clients.emily" [(ngModel)]="excludeClients.emily"
         >Emily</mat-checkbox
       >
-      <mat-checkbox *ngIf="clients.anne" [(ngModel)]="excludeClients.anne"
+      <mat-checkbox *ngIf="!clients.anne" [(ngModel)]="excludeClients.anne"
         >Anne</mat-checkbox
       >
     </div>
     <div class="step-actions">
       <button mat-button matStepperNext>Next</button>
+    </div>
+  </mat-step>
+  <mat-step label="Summary">
+    <div class="summary" *ngIf="definitionForm.valid">
+      <h3>Summary</h3>
+      <h6>Description</h6>
+      <p>
+        <strong>Marketing Name: </strong
+        >{{ definitionForm.value.marketingName }}
+      </p>
+      <p>
+        <strong>Technical Name: </strong
+        >{{ definitionForm.value.technicalName }}
+      </p>
+      <p>
+        <strong>Description: </strong>{{ definitionForm.value.description }}
+      </p>
+      <h6>Conditions</h6>
+      <p><strong>Portal: </strong>{{ definitionForm.value.marketingName }}</p>
+      <p><strong>Type: </strong>{{ definitionForm.value.type }}</p>
+      <p><strong>Start Date: </strong>{{ definitionForm.value.startDate }}</p>
+      <p><strong>End Date: </strong>{{ definitionForm.value.endDate }}</p>
+      <p><strong>Pricing: </strong>{{ definitionForm.value.pricing }}</p>
+      <p>
+        <strong>Connect with other promotions: </strong
+        >{{ definitionForm.value.connectPromotions ? "Yes" : "No" }}
+      </p>
+      <p>
+        <strong>Back promotions: </strong
+        >{{ definitionForm.value.backPromotions ? "Yes" : "No" }}
+      </p>
     </div>
   </mat-step>
 </mat-horizontal-stepper>

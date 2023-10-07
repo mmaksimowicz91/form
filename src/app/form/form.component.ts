@@ -63,10 +63,8 @@ export class FormComponent implements OnInit {
 
   onSubmit() {
     if (this.definitionForm.valid) {
-      // Handle your form submission logic here
       console.log(this.definitionForm.value);
     } else {
-      // Handle form errors
       console.error('Form is not valid');
     }
   }
