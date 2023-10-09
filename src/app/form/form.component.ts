@@ -28,6 +28,7 @@ export class FormComponent implements OnInit {
   };
 
   productsList: string[] = ['Lorem', 'Ipsum', 'Sit', 'Dolor', 'Amet'];
+  bonusProducts: string[] = ['Consectetur', 'Adipiscing', 'Elit', 'Sed', 'Do'];
 
   constructor(private fb: FormBuilder) {}
 
@@ -57,6 +58,8 @@ export class FormComponent implements OnInit {
         this.fb.control(false), // Dolor
         this.fb.control(false), // Amet
       ]),
+      bonusProducts: [''],
+      productLimits: [''],
       clients: this.fb.array([
         this.fb.control(false), // Aaron
         this.fb.control(false), // Bert
@@ -71,6 +74,7 @@ export class FormComponent implements OnInit {
         this.fb.control(false), // Emily
         this.fb.control(false), // Anne
       ]),
+      clientsLimits: [''],
     });
   }
 
@@ -132,11 +136,28 @@ export class FormComponent implements OnInit {
     return this.definitionForm.controls[controlName].hasError(errorName);
   }
 
-  onSubmit() {
-    if (this.definitionForm.valid) {
-      console.log(this.definitionForm.value);
-    } else {
-      console.error('Form is not valid');
+  onStepChange(event: any, stepper: any) {
+    if (
+      (event.selectedIndex === 3 || event.selectedIndex === 4) &&
+      (!this.definitionForm.controls['marketingName'].value ||
+        !this.definitionForm.controls['technicalName'].value)
+    ) {
+      alert(
+        'Proszę wypełnić pola "Marketing Name" i "Technical Name" przed przejściem do tego kroku.'
+      );
+      setTimeout(() => {
+        stepper.selectedIndex = event.previousIndex; // Powrót do poprzedniego kroku
+      }, 0);
     }
   }
+
+  // submitForm() {
+  //   if (this.definitionForm.valid) {
+  //     const newRecord: Record = {
+  //       no: this.records.length + 1,
+  //       nazwa: this.definitionForm.value.marketingName
+  //     };
+  //     this.records.push(newRecord);
+  //   }
+  // }
 }

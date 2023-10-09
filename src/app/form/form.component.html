@@ -1,5 +1,7 @@
 <div class="stepper-container">
   <mat-vertical-stepper
+    #stepper
+    (selectionChange)="onStepChange($event, stepper)"
     ><form [formGroup]="definitionForm">
       <mat-step [completed]="false" label="Definition">
         <div class="step-content">
@@ -101,7 +103,7 @@
       </mat-step>
 
       <mat-step [completed]="false" label="Choose products">
-        <div formArrayName="products" class="step-content">
+        <div formArrayName="products" class="step-content options-container">
           <mat-checkbox [formControlName]="0">Lorem</mat-checkbox>
           <mat-checkbox [formControlName]="1">Ipsum</mat-checkbox>
           <mat-checkbox [formControlName]="2">Sit</mat-checkbox>
@@ -114,7 +116,10 @@
       </mat-step>
 
       <mat-step [completed]="false" label="Exclude products">
-        <div formArrayName="excludedProducts" class="step-content">
+        <div
+          formArrayName="excludedProducts"
+          class="step-content options-container"
+        >
           <mat-checkbox
             *ngFor="let productInfo of getExcludedProducts(); let i = index"
             [formControlName]="productInfo.index"
@@ -131,12 +136,9 @@
         <div class="step-content">
           <mat-form-field>
             <mat-label>Bonus Products</mat-label>
-            <mat-select>
-              <mat-option
-                *ngFor="let product of productsList"
-                [value]="product"
-              >
-                {{ product }}
+            <mat-select formControlName="bonusProducts">
+              <mat-option *ngFor="let bonus of bonusProducts" [value]="bonus">
+                {{ bonus }}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -147,7 +149,10 @@
       </mat-step>
       <mat-step [completed]="false" label="Product Limits">
         <div class="step-content">
-          <mat-radio-group aria-label="Select an option">
+          <mat-radio-group
+            formControlName="productLimits"
+            aria-label="Select an option"
+          >
             <mat-label><b>Product Limits</b></mat-label>
             <mat-radio-button value="1-50">1-50</mat-radio-button>
             <mat-radio-button value="50-100">50-100</mat-radio-button>
@@ -160,7 +165,7 @@
         </div>
       </mat-step>
       <mat-step [completed]="false" label="Choose Clients">
-        <div formArrayName="clients" class="step-content">
+        <div formArrayName="clients" class="step-content options-container">
           <mat-checkbox [formControlName]="0">Aaron</mat-checkbox>
           <mat-checkbox [formControlName]="1">Bert</mat-checkbox>
           <mat-checkbox [formControlName]="2">Randy</mat-checkbox>
@@ -173,7 +178,10 @@
       </mat-step>
 
       <mat-step [completed]="false" label="Exclude Clients">
-        <div formArrayName="excludedClients" class="step-content">
+        <div
+          formArrayName="excludedClients"
+          class="step-content options-container"
+        >
           <mat-checkbox
             *ngFor="let clientInfo of getExcludedClients(); let i = index"
             [formControlName]="clientInfo.index"
@@ -185,10 +193,27 @@
           <button mat-button matStepperNext>Next</button>
         </div>
       </mat-step>
+      <mat-step [completed]="false" label="Clients Limits">
+        <div class="step-content">
+          <mat-radio-group
+            formControlName="clientsLimits"
+            aria-label="Select an option"
+          >
+            <mat-label><b>Clients Limits</b></mat-label>
+            <mat-radio-button value="1">1</mat-radio-button>
+            <mat-radio-button value="2">2</mat-radio-button>
+            <mat-radio-button value="3">3</mat-radio-button>
+            <mat-radio-button value="4">4</mat-radio-button>
+            <mat-radio-button value="5">5</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div class="step-actions">
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </mat-step>
       <mat-step [completed]="false" label="Summary">
         <div class="summary" *ngIf="definitionForm.valid">
           <h1>Summary</h1>
-          <h3>Description</h3>
           <p>
             <strong>Marketing Name: </strong
             >{{ definitionForm.value.marketingName }}
@@ -200,7 +225,7 @@
           <p>
             <strong>Description: </strong>{{ definitionForm.value.description }}
           </p>
-          <h3>Conditions</h3>
+
           <p><strong>Portal: </strong>{{ definitionForm.value.portal }}</p>
           <p><strong>Type: </strong>{{ definitionForm.value.type }}</p>
           <p>
@@ -221,27 +246,37 @@
           </p>
         </div>
 
-        <h3>Selected Products</h3>
+        <strong>Selected Products</strong>
         <ul>
           <li *ngFor="let product of getSelectedProducts()">{{ product }}</li>
         </ul>
-        <h3>Excluded Products</h3>
+        <strong>Excluded Products</strong>
         <ul>
           <li *ngFor="let product of getExcludedSelectedProducts()">
             {{ product }}
           </li>
         </ul>
+        <p>
+          <strong>Bonus Products: </strong
+          >{{ definitionForm.value.bonusProducts }}
+        </p>
 
-        <h3>Selected Clients</h3>
+        <p>
+          <strong>Product Limits: </strong
+          >{{ definitionForm.value.productLimits }}
+        </p>
+
+        <strong>Selected Clients: </strong>
         <ul>
           <li *ngFor="let client of getSelectedClients()">{{ client }}</li>
         </ul>
-        <h3>Excluded Clients</h3>
+        <strong>Excluded Clients: </strong>
         <ul>
           <li *ngFor="let client of getExcludedSelectedClients()">
             {{ client }}
           </li>
         </ul>
+        <button mat-raised-button>Submit</button>
       </mat-step>
     </form>
   </mat-vertical-stepper>
