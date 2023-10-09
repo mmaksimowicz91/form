@@ -1,9 +1,9 @@
-<button mat-raised-button [routerLink]="['/form']">Add</button>
+<button mat-raised-button color="primary" [routerLink]="['/form']">Add</button>
 
 <mat-table [dataSource]="records">
   <ng-container matColumnDef="no">
     <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
-    <mat-cell *matCellDef="let record"> {{ record.no }} </mat-cell>
+    <mat-cell *matCellDef="let record; let i = index"> {{ i + 1 }} </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="nazwa">

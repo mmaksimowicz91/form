@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { FormRecord } from '../home/home.component';
+import { FormService } from '../services/form.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-form',
@@ -7,7 +10,7 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
   styleUrls: ['./form.component.scss'],
 })
 export class FormComponent implements OnInit {
-  definitionForm!: FormGroup;
+  myForm!: FormGroup;
   excludedSelectedProducts: string[] = [];
   excludedSelectedClients: string[] = [];
 
@@ -30,10 +33,14 @@ export class FormComponent implements OnInit {
   productsList: string[] = ['Lorem', 'Ipsum', 'Sit', 'Dolor', 'Amet'];
   bonusProducts: string[] = ['Consectetur', 'Adipiscing', 'Elit', 'Sed', 'Do'];
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private formService: FormService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
-    this.definitionForm = this.fb.group({
+    this.myForm = this.fb.group({
       marketingName: ['', Validators.required],
       technicalName: ['', Validators.required],
       description: [''],
@@ -45,53 +52,66 @@ export class FormComponent implements OnInit {
       connectPromotions: [false],
       backPromotions: [false],
       products: this.fb.array([
-        this.fb.control(false), // Lorem
-        this.fb.control(false), // Ipsum
-        this.fb.control(false), // Sit
-        this.fb.control(false), // Dolor
-        this.fb.control(false), // Amet
+        this.fb.control(false),
+        this.fb.control(false),
+        this.fb.control(false),
+        this.fb.control(false),
+        this.fb.control(false),
       ]),
       excludedProducts: this.fb.array([
-        this.fb.control(false), // Lorem
-        this.fb.control(false), // Ipsum
-        this.fb.control(false), // Sit
-        this.fb.control(false), // Dolor
-        this.fb.control(false), // Amet
+        this.fb.control(false),
+        this.fb.control(false),
+        this.fb.control(false),
+        this.fb.control(false),
+        this.fb.control(false),
       ]),
       bonusProducts: [''],
       productLimits: [''],
       clients: this.fb.array([
-        this.fb.control(false), // Aaron
-        this.fb.control(false), // Bert
-        this.fb.control(false), // Randy
-        this.fb.control(false), // Emily
-        this.fb.control(false), // Anne
+        this.fb.control(false),
+        this.fb.control(false),
+        this.fb.control(false),
+        this.fb.control(false),
+        this.fb.control(false),
       ]),
       excludedClients: this.fb.array([
-        this.fb.control(false), // Aaron
-        this.fb.control(false), // Bert
-        this.fb.control(false), // Randy
-        this.fb.control(false), // Emily
-        this.fb.control(false), // Anne
+        this.fb.control(false),
+        this.fb.control(false),
+        this.fb.control(false),
+        this.fb.control(false),
+        this.fb.control(false),
       ]),
       clientsLimits: [''],
+    });
+    const savedFormValue = localStorage.getItem('formDraft');
+    if (savedFormValue) {
+      try {
+        const parsedValue = JSON.parse(savedFormValue);
+        this.myForm.patchValue(parsedValue);
+      } catch (error) {
+        console.error('Error parsing form data from localStorage:', error);
+      }
+    }
+
+    this.myForm.valueChanges.subscribe((values) => {
+      localStorage.setItem('formDraft', JSON.stringify(values));
     });
   }
 
   get products(): FormArray {
-    return this.definitionForm.get('products') as FormArray;
+    return this.myForm.get('products') as FormArray;
   }
 
   get clients(): FormArray {
-    return this.definitionForm.get('clients') as FormArray;
+    return this.myForm.get('clients') as FormArray;
   }
 
   get excludedProducts(): FormArray {
-    return this.definitionForm.get('excludedProducts') as FormArray;
+    return this.myForm.get('excludedProducts') as FormArray;
   }
 
   get excludedClients(): FormArray {
-    return this.definitionForm.get('excludedClients') as FormArray;
+    return this.myForm.get('excludedClients') as FormArray;
   }
 
   getSelectedProducts(): string[] {
@@ -133,31 +153,34 @@ export class FormComponent implements OnInit {
   }
 
   hasError(controlName: string, errorName: string): boolean {
-    return this.definitionForm.controls[controlName].hasError(errorName);
+    return this.myForm.controls[controlName].hasError(errorName);
   }
 
   onStepChange(event: any, stepper: any) {
     if (
       (event.selectedIndex === 3 || event.selectedIndex === 4) &&
-      (!this.definitionForm.controls['marketingName'].value ||
-        !this.definitionForm.controls['technicalName'].value)
+      (!this.myForm.controls['marketingName'].value ||
+        !this.myForm.controls['technicalName'].value)
     ) {
       alert(
         'Proszę wypełnić pola "Marketing Name" i "Technical Name" przed przejściem do tego kroku.'
       );
       setTimeout(() => {
-        stepper.selectedIndex = event.previousIndex; // Powrót do poprzedniego kroku
+        stepper.selectedIndex = event.previousIndex;
       }, 0);
     }
   }
 
-  // submitForm() {
-  //   if (this.definitionForm.valid) {
-  //     const newRecord: Record = {
-  //       no: this.records.length + 1,
-  //       nazwa: this.definitionForm.value.marketingName
-  //     };
-  //     this.records.push(newRecord);
-  //   }
-  // }
+  submitForm() {
+    if (this.myForm.valid) {
+      const newRecord: FormRecord = {
+        no: this.formService.getRecords().length + 1,
+        nazwa: this.myForm.value.marketingName,
+      };
+      this.formService.addRecord(newRecord);
+      this.router.navigate(['/home']);
+      localStorage.removeItem('formDraft');
+    }
+    console.log('Bubububub');
+  }
 }

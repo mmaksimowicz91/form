@@ -4,7 +4,8 @@ import { HomeComponent } from './home/home.component';
 import { FormComponent } from './form/form.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
   { path: 'form', component: FormComponent },
 ];
 

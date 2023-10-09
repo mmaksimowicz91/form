@@ -2,7 +2,7 @@
   <mat-vertical-stepper
     #stepper
     (selectionChange)="onStepChange($event, stepper)"
-    ><form [formGroup]="definitionForm">
+    ><form [formGroup]="myForm">
       <mat-step [completed]="false" label="Definition">
         <div class="step-content">
           <div class="description">
@@ -12,9 +12,7 @@
               <mat-label>Marketing Name</mat-label>
               <input matInput formControlName="marketingName" required />
               <mat-error
-                *ngIf="
-                  definitionForm.get('marketingName')?.hasError('required')
-                "
+                *ngIf="myForm.get('marketingName')?.hasError('required')"
               >
                 * is required
               </mat-error>
@@ -23,9 +21,7 @@
               <mat-label>Technical Name</mat-label>
               <input matInput formControlName="technicalName" required />
               <mat-error
-                *ngIf="
-                  definitionForm.get('technicalName')?.hasError('required')
-                "
+                *ngIf="myForm.get('technicalName')?.hasError('required')"
               >
                 * is required
               </mat-error>
@@ -211,37 +207,30 @@
         </div>
       </mat-step>
       <mat-step [completed]="false" label="Summary">
-        <div class="summary" *ngIf="definitionForm.valid">
+        <div class="summary" *ngIf="myForm.valid">
           <h1>Summary</h1>
           <p>
-            <strong>Marketing Name: </strong
-            >{{ definitionForm.value.marketingName }}
+            <strong>Marketing Name: </strong>{{ myForm.value.marketingName }}
           </p>
           <p>
-            <strong>Technical Name: </strong
-            >{{ definitionForm.value.technicalName }}
+            <strong>Technical Name: </strong>{{ myForm.value.technicalName }}
           </p>
-          <p>
-            <strong>Description: </strong>{{ definitionForm.value.description }}
-          </p>
+          <p><strong>Description: </strong>{{ myForm.value.description }}</p>
 
-          <p><strong>Portal: </strong>{{ definitionForm.value.portal }}</p>
-          <p><strong>Type: </strong>{{ definitionForm.value.type }}</p>
+          <p><strong>Portal: </strong>{{ myForm.value.portal }}</p>
+          <p><strong>Type: </strong>{{ myForm.value.type }}</p>
           <p>
-            <strong>Start Date: </strong
-            >{{ definitionForm.value.startDate | date }}
+            <strong>Start Date: </strong>{{ myForm.value.startDate | date }}
           </p>
-          <p>
-            <strong>End Date: </strong>{{ definitionForm.value.endDate | date }}
-          </p>
-          <p><strong>Pricing: </strong>{{ definitionForm.value.pricing }}</p>
+          <p><strong>End Date: </strong>{{ myForm.value.endDate | date }}</p>
+          <p><strong>Pricing: </strong>{{ myForm.value.pricing }}</p>
           <p>
             <strong>Connect with other promotions: </strong
-            >{{ definitionForm.value.connectPromotions ? "Yes" : "No" }}
+            >{{ myForm.value.connectPromotions ? "Yes" : "No" }}
           </p>
           <p>
             <strong>Back promotions: </strong
-            >{{ definitionForm.value.backPromotions ? "Yes" : "No" }}
+            >{{ myForm.value.backPromotions ? "Yes" : "No" }}
           </p>
         </div>
 
@@ -255,15 +244,9 @@
             {{ product }}
           </li>
         </ul>
-        <p>
-          <strong>Bonus Products: </strong
-          >{{ definitionForm.value.bonusProducts }}
-        </p>
+        <p><strong>Bonus Products: </strong>{{ myForm.value.bonusProducts }}</p>
 
-        <p>
-          <strong>Product Limits: </strong
-          >{{ definitionForm.value.productLimits }}
-        </p>
+        <p><strong>Product Limits: </strong>{{ myForm.value.productLimits }}</p>
 
         <strong>Selected Clients: </strong>
         <ul>
@@ -275,11 +258,10 @@
             {{ client }}
           </li>
         </ul>
-        <p>
-          <strong>Clients Limits: </strong
-          >{{ definitionForm.value.clientsLimits }}
-        </p>
-        <button mat-raised-button>Submit</button>
+        <p><strong>Clients Limits: </strong>{{ myForm.value.clientsLimits }}</p>
+        <button mat-raised-button color="primary" (click)="submitForm()">
+          Submit
+        </button>
       </mat-step>
     </form>
   </mat-vertical-stepper>
