@@ -96,6 +96,13 @@ export class FormComponent implements OnInit {
     this.myForm.valueChanges.subscribe((values) => {
       localStorage.setItem('formDraft', JSON.stringify(values));
     });
+
+    const currentRecord = this.formService.getCurrentRecord();
+    if (currentRecord) {
+      this.myForm.patchValue({
+        marketingName: currentRecord.nazwa,
+      });
+    }
   }
 
   get products(): FormArray {
@@ -173,14 +180,22 @@ export class FormComponent implements OnInit {
 
   submitForm() {
     if (this.myForm.valid) {
-      const newRecord: FormRecord = {
-        no: this.formService.getRecords().length + 1,
-        nazwa: this.myForm.value.marketingName,
-      };
-      this.formService.addRecord(newRecord);
+      const currentRecord = this.formService.getCurrentRecord();
+      if (currentRecord) {
+        currentRecord.nazwa = this.myForm.value.marketingName;
+      } else {
+        const newRecord: FormRecord = {
+          no: this.formService.getRecords().length + 1,
+          nazwa: this.myForm.value.marketingName,
+        };
+        this.formService.addRecord(newRecord);
+      }
       this.router.navigate(['/home']);
       localStorage.removeItem('formDraft');
+      this.formService.clearCurrentRecord();
     }
-    console.log('Bubububub');
+    this.router.navigate(['/home']).then(() => {
+      window.location.reload();
+    });
   }
 }

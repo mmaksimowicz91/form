@@ -13,26 +13,35 @@ export interface FormRecord {
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  public records: FormRecord[] = [];
+  records: FormRecord[] = [];
 
   displayedColumns: string[] = ['no', 'nazwa', 'actions'];
 
   constructor(private router: Router, private formService: FormService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getRecords();
+  }
 
   getRecords() {
     this.records = this.formService.getRecords();
   }
 
   editRecord(record: FormRecord) {
-    this.router.navigate(['/form'], { queryParams: { no: record.no } });
+    this.formService.setCurrentRecord(record);
+    this.router.navigate(['/form']);
   }
 
   deleteRecord(record: FormRecord) {
+    this.formService.deleteRecord(record.no);
     const index = this.records.indexOf(record);
     if (index > -1) {
       this.records.splice(index, 1);
     }
+    this.refreshRecords();
+  }
+
+  refreshRecords() {
+    this.records = this.formService.getRecords();
   }
 }
