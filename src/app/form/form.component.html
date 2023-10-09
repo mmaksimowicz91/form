@@ -1,257 +1,250 @@
-<mat-horizontal-stepper linear>
-  <mat-step [stepControl]="definitionForm" label="Definition">
-    <form [formGroup]="definitionForm">
-      <div class="step-content">
-        <div class="description">
-          <mat-error class="error">* is required </mat-error>
-          <h1>Description</h1>
-          <mat-form-field>
-            <mat-label>Marketing Name</mat-label>
-            <input matInput formControlName="marketingName" required />
-            <mat-error
-              *ngIf="definitionForm.get('marketingName')?.hasError('required')"
-            >
-              * is required
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field>
-            <mat-label>Technical Name</mat-label>
-            <input matInput formControlName="technicalName" required />
-            <mat-error
-              *ngIf="definitionForm.get('technicalName')?.hasError('required')"
-            >
-              * is required
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field>
-            <mat-label>Description</mat-label>
-            <textarea
-              matInput
-              formControlName="description"
-              required
-            ></textarea>
-            <mat-error
-              *ngIf="definitionForm.get('description')?.hasError('required')"
-            >
-              * is required
-            </mat-error>
-          </mat-form-field>
-          <p>Catalog promotion tutorial: Lorem ipsum...</p>
-        </div>
+<div class="stepper-container">
+  <mat-vertical-stepper linear
+    ><form [formGroup]="definitionForm">
+      <mat-step [stepControl]="definitionForm" label="Definition">
+        <div class="step-content">
+          <div class="description">
+            <mat-error class="error">* is required </mat-error>
+            <h1>Description</h1>
+            <mat-form-field>
+              <mat-label>Marketing Name</mat-label>
+              <input matInput formControlName="marketingName" required />
+              <mat-error
+                *ngIf="
+                  definitionForm.get('marketingName')?.hasError('required')
+                "
+              >
+                * is required
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Technical Name</mat-label>
+              <input matInput formControlName="technicalName" required />
+              <mat-error
+                *ngIf="
+                  definitionForm.get('technicalName')?.hasError('required')
+                "
+              >
+                * is required
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Description</mat-label>
+              <textarea matInput formControlName="description"></textarea>
+            </mat-form-field>
+            <p>Catalog promotion tutorial: Lorem ipsum...</p>
+          </div>
 
-        <div class="conditions">
-          <h1>Conditions</h1>
+          <div class="conditions">
+            <h1>Conditions</h1>
+            <mat-form-field>
+              <mat-label>Portal</mat-label>
+              <mat-select formControlName="portal" required>
+                <mat-option value="chrome">Chrome</mat-option>
+                <mat-option value="firefox">Firefox</mat-option>
+                <mat-option value="opera">Opera</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Type</mat-label>
+              <mat-select formControlName="type" required>
+                <mat-option value="windows">Windows</mat-option>
+                <mat-option value="mac">Mac</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Start Date</mat-label>
+              <input
+                matInput
+                [matDatepicker]="startDatePicker"
+                formControlName="startDate"
+                required
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="startDatePicker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #startDatePicker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>End Date</mat-label>
+              <input
+                matInput
+                [matDatepicker]="endDatePicker"
+                formControlName="endDate"
+                required
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="endDatePicker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #endDatePicker></mat-datepicker>
+            </mat-form-field>
+            <mat-radio-group formControlName="pricing" required>
+              <mat-radio-button value="business"
+                >Business Conditions</mat-radio-button
+              >
+              <mat-radio-button value="base100"
+                >Base price 100%</mat-radio-button
+              >
+            </mat-radio-group>
+
+            <mat-checkbox formControlName="connectPromotions"
+              >Connect with other promotions</mat-checkbox
+            >
+            <mat-checkbox formControlName="backPromotions"
+              >Back promotions</mat-checkbox
+            >
+          </div>
+        </div>
+        <div class="step-actions">
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </mat-step>
+
+      <mat-step label="Choose products">
+        <div formArrayName="products" class="step-content">
+          <mat-checkbox [formControlName]="0">Lorem</mat-checkbox>
+          <mat-checkbox [formControlName]="1">Ipsum</mat-checkbox>
+          <mat-checkbox [formControlName]="2">Sit</mat-checkbox>
+          <mat-checkbox [formControlName]="3">Dolor</mat-checkbox>
+          <mat-checkbox [formControlName]="4">Amet</mat-checkbox>
+        </div>
+        <div class="step-actions">
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </mat-step>
+
+      <mat-step label="Exclude products">
+        <div formArrayName="excludedProducts" class="step-content">
+          <mat-checkbox
+            *ngFor="let productInfo of getExcludedProducts(); let i = index"
+            [formControlName]="productInfo.index"
+          >
+            {{ productInfo.name }}
+          </mat-checkbox>
+        </div>
+        <div class="step-actions">
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </mat-step>
+
+      <mat-step label="Bonus Products">
+        <div class="step-content">
           <mat-form-field>
-            <mat-label>Portal</mat-label>
-            <mat-select formControlName="portal" required>
-              <mat-option value="chrome">Chrome</mat-option>
-              <mat-option value="firefox">Firefox</mat-option>
-              <mat-option value="opera">Opera</mat-option>
+            <mat-label>Bonus Products</mat-label>
+            <mat-select>
+              <mat-option
+                *ngFor="let product of productsList"
+                [value]="product"
+              >
+                {{ product }}
+              </mat-option>
             </mat-select>
-            <mat-error
-              *ngIf="definitionForm.get('portal')?.hasError('required')"
-            >
-              * is required
-            </mat-error>
           </mat-form-field>
-          <mat-form-field>
-            <mat-label>Type</mat-label>
-            <mat-select formControlName="type" required>
-              <mat-option value="windows">Windows</mat-option>
-              <mat-option value="mac">Mac</mat-option>
-            </mat-select>
-            <mat-error *ngIf="definitionForm.get('type')?.hasError('required')">
-              * is required
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field>
-            <mat-label>Start Date</mat-label>
-            <input
-              matInput
-              [matDatepicker]="startDatePicker"
-              formControlName="startDate"
-              required
-            />
-            <mat-datepicker-toggle
-              matSuffix
-              [for]="startDatePicker"
-            ></mat-datepicker-toggle>
-            <mat-datepicker #startDatePicker></mat-datepicker>
-            <mat-error
-              *ngIf="definitionForm.get('startDate')?.hasError('required')"
-            >
-              * is required
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field>
-            <mat-label>End Date</mat-label>
-            <input
-              matInput
-              [matDatepicker]="endDatePicker"
-              formControlName="endDate"
-              required
-            />
-            <mat-datepicker-toggle
-              matSuffix
-              [for]="endDatePicker"
-            ></mat-datepicker-toggle>
-            <mat-datepicker #endDatePicker></mat-datepicker>
-            <mat-error
-              *ngIf="definitionForm.get('endDate')?.hasError('required')"
-            >
-              * is required
-            </mat-error>
-          </mat-form-field>
-          <mat-radio-group formControlName="pricing" required>
-            <mat-radio-button value="business"
-              >Business Conditions</mat-radio-button
-            >
-            <mat-radio-button value="base100">Base price 100%</mat-radio-button>
+        </div>
+        <div class="step-actions">
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </mat-step>
+      <mat-step label="Product Limits">
+        <div class="step-content">
+          <mat-radio-group aria-label="Select an option">
+            <mat-label><b>Product Limits</b></mat-label>
+            <mat-radio-button value="1-50">1-50</mat-radio-button>
+            <mat-radio-button value="50-100">50-100</mat-radio-button>
+            <mat-radio-button value="100-150">100-150</mat-radio-button>
+            <mat-radio-button value="150-200">150-200</mat-radio-button>
           </mat-radio-group>
-
-          <mat-checkbox formControlName="connectPromotions"
-            >Connect with other promotions</mat-checkbox
-          >
-          <mat-checkbox formControlName="backPromotions"
-            >Back promotions</mat-checkbox
-          >
         </div>
-      </div>
-      <div class="step-actions">
-        <button mat-button matStepperNext>Next</button>
-      </div>
-    </form>
-  </mat-step>
+        <div class="step-actions">
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </mat-step>
+      <mat-step label="Choose Clients">
+        <div formArrayName="clients" class="step-content">
+          <mat-checkbox [formControlName]="0">Aaron</mat-checkbox>
+          <mat-checkbox [formControlName]="1">Bert</mat-checkbox>
+          <mat-checkbox [formControlName]="2">Randy</mat-checkbox>
+          <mat-checkbox [formControlName]="3">Emily</mat-checkbox>
+          <mat-checkbox [formControlName]="4">Anne</mat-checkbox>
+        </div>
+        <div class="step-actions">
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </mat-step>
 
-  <mat-step label="Choose products">
-    <div class="step-content">
-      <mat-checkbox [(ngModel)]="products.lorem">Lorem</mat-checkbox>
-      <mat-checkbox [(ngModel)]="products.ipsum">Ipsum</mat-checkbox>
-      <mat-checkbox [(ngModel)]="products.sit">Sit</mat-checkbox>
-      <mat-checkbox [(ngModel)]="products.dolor">Dolor</mat-checkbox>
-      <mat-checkbox [(ngModel)]="products.amet">Amet</mat-checkbox>
-    </div>
-    <div class="step-actions">
-      <button mat-button matStepperNext>Next</button>
-    </div>
-  </mat-step>
+      <mat-step label="Exclude Clients">
+        <div formArrayName="excludedClients" class="step-content">
+          <mat-checkbox
+            *ngFor="let clientInfo of getExcludedClients(); let i = index"
+            [formControlName]="clientInfo.index"
+          >
+            {{ clientInfo.name }}
+          </mat-checkbox>
+        </div>
+        <div class="step-actions">
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </mat-step>
+      <mat-step label="Summary">
+        <div class="summary" *ngIf="definitionForm.valid">
+          <h1>Summary</h1>
+          <h3>Description</h3>
+          <p>
+            <strong>Marketing Name: </strong
+            >{{ definitionForm.value.marketingName }}
+          </p>
+          <p>
+            <strong>Technical Name: </strong
+            >{{ definitionForm.value.technicalName }}
+          </p>
+          <p>
+            <strong>Description: </strong>{{ definitionForm.value.description }}
+          </p>
+          <h3>Conditions</h3>
+          <p><strong>Portal: </strong>{{ definitionForm.value.portal }}</p>
+          <p><strong>Type: </strong>{{ definitionForm.value.type }}</p>
+          <p>
+            <strong>Start Date: </strong
+            >{{ definitionForm.value.startDate | date }}
+          </p>
+          <p>
+            <strong>End Date: </strong>{{ definitionForm.value.endDate | date }}
+          </p>
+          <p><strong>Pricing: </strong>{{ definitionForm.value.pricing }}</p>
+          <p>
+            <strong>Connect with other promotions: </strong
+            >{{ definitionForm.value.connectPromotions ? "Yes" : "No" }}
+          </p>
+          <p>
+            <strong>Back promotions: </strong
+            >{{ definitionForm.value.backPromotions ? "Yes" : "No" }}
+          </p>
+        </div>
 
-  <mat-step label="Exclude products">
-    <div class="step-content">
-      <mat-checkbox *ngIf="!products.lorem" [(ngModel)]="excludeProducts.lorem"
-        >Lorem</mat-checkbox
-      >
-      <mat-checkbox *ngIf="!products.ipsum" [(ngModel)]="excludeProducts.ipsum"
-        >Ipsum</mat-checkbox
-      >
-      <mat-checkbox *ngIf="!products.sit" [(ngModel)]="excludeProducts.sit"
-        >Sit</mat-checkbox
-      >
-      <mat-checkbox *ngIf="!products.dolor" [(ngModel)]="excludeProducts.dolor"
-        >Dolor</mat-checkbox
-      >
-      <mat-checkbox *ngIf="!products.amet" [(ngModel)]="excludeProducts.amet"
-        >Amet</mat-checkbox
-      >
-    </div>
-    <div class="step-actions">
-      <button mat-button matStepperNext>Next</button>
-    </div>
-  </mat-step>
-
-  <mat-step label="Bonus Products">
-    <div class="step-content">
-      <mat-form-field>
-        <mat-label>Bonus Products</mat-label>
-        <mat-select>
-          <mat-option *ngFor="let product of productsList" [value]="product">
+        <h3>Selected Products</h3>
+        <ul>
+          <li *ngFor="let product of getSelectedProducts()">{{ product }}</li>
+        </ul>
+        <h3>Excluded Products</h3>
+        <ul>
+          <li *ngFor="let product of getExcludedSelectedProducts()">
             {{ product }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="step-actions">
-      <button mat-button matStepperNext>Next</button>
-    </div>
-  </mat-step>
-  <mat-step label="Product Limits">
-    <div class="step-content">
-      <mat-radio-group aria-label="Select an option">
-        <mat-label><b>Product Limits</b></mat-label>
-        <mat-radio-button value="1-50">1-50</mat-radio-button>
-        <mat-radio-button value="50-100">50-100</mat-radio-button>
-        <mat-radio-button value="100-150">100-150</mat-radio-button>
-        <mat-radio-button value="150-200">150-200</mat-radio-button>
-      </mat-radio-group>
-    </div>
-    <div class="step-actions">
-      <button mat-button matStepperNext>Next</button>
-    </div>
-  </mat-step>
-  <mat-step label="Choose Clients">
-    <div class="step-content">
-      <mat-checkbox [(ngModel)]="clients.aaron">Aaron</mat-checkbox>
-      <mat-checkbox [(ngModel)]="clients.bert">Bert</mat-checkbox>
-      <mat-checkbox [(ngModel)]="clients.randy">Randy</mat-checkbox>
-      <mat-checkbox [(ngModel)]="clients.emily">Emily</mat-checkbox>
-      <mat-checkbox [(ngModel)]="clients.anne">Anne</mat-checkbox>
-    </div>
-    <div class="step-actions">
-      <button mat-button matStepperNext>Next</button>
-    </div>
-  </mat-step>
+          </li>
+        </ul>
 
-  <mat-step label="Exclude Clients">
-    <div class="step-content">
-      <mat-checkbox *ngIf="!clients.aaron" [(ngModel)]="excludeClients.aaron"
-        >Aaron</mat-checkbox
-      >
-      <mat-checkbox *ngIf="!clients.bert" [(ngModel)]="excludeClients.bert"
-        >Bert</mat-checkbox
-      >
-      <mat-checkbox *ngIf="!clients.randy" [(ngModel)]="excludeClients.randy"
-        >Randy</mat-checkbox
-      >
-      <mat-checkbox *ngIf="!clients.emily" [(ngModel)]="excludeClients.emily"
-        >Emily</mat-checkbox
-      >
-      <mat-checkbox *ngIf="!clients.anne" [(ngModel)]="excludeClients.anne"
-        >Anne</mat-checkbox
-      >
-    </div>
-    <div class="step-actions">
-      <button mat-button matStepperNext>Next</button>
-    </div>
-  </mat-step>
-  <mat-step label="Summary">
-    <div class="summary" *ngIf="definitionForm.valid">
-      <h3>Summary</h3>
-      <h6>Description</h6>
-      <p>
-        <strong>Marketing Name: </strong
-        >{{ definitionForm.value.marketingName }}
-      </p>
-      <p>
-        <strong>Technical Name: </strong
-        >{{ definitionForm.value.technicalName }}
-      </p>
-      <p>
-        <strong>Description: </strong>{{ definitionForm.value.description }}
-      </p>
-      <h6>Conditions</h6>
-      <p><strong>Portal: </strong>{{ definitionForm.value.marketingName }}</p>
-      <p><strong>Type: </strong>{{ definitionForm.value.type }}</p>
-      <p><strong>Start Date: </strong>{{ definitionForm.value.startDate }}</p>
-      <p><strong>End Date: </strong>{{ definitionForm.value.endDate }}</p>
-      <p><strong>Pricing: </strong>{{ definitionForm.value.pricing }}</p>
-      <p>
-        <strong>Connect with other promotions: </strong
-        >{{ definitionForm.value.connectPromotions ? "Yes" : "No" }}
-      </p>
-      <p>
-        <strong>Back promotions: </strong
-        >{{ definitionForm.value.backPromotions ? "Yes" : "No" }}
-      </p>
-    </div>
-  </mat-step>
-</mat-horizontal-stepper>
+        <h3>Selected Clients</h3>
+        <ul>
+          <li *ngFor="let client of getSelectedClients()">{{ client }}</li>
+        </ul>
+        <h3>Excluded Clients</h3>
+        <ul>
+          <li *ngFor="let client of getExcludedSelectedClients()">
+            {{ client }}
+          </li>
+        </ul>
+      </mat-step>
+    </form>
+  </mat-vertical-stepper>
+</div>

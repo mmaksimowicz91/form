@@ -12,3 +12,18 @@
 .step-actions {
   margin-top: 20px;
 }
+
+.stepper-container {
+  display: flex;
+  flex-direction: row; // domyślna wartość, ale warto ją dodać dla jasności
+}
+
+mat-horizontal-stepper {
+  flex: 0 0 auto; // nie pozwól na zmianę rozmiaru stepper'a
+  width: 200px; // możesz dostosować szerokość według potrzeb
+  margin-right: 20px; // dodaj odstęp między stepper'em a treścią formularza
+}
+
+.form-content {
+  flex: 1; // pozwól treści formularza na zajmowanie dostępnego miejsca
+}

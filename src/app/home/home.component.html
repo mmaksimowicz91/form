@@ -1,19 +1,16 @@
 <button mat-raised-button [routerLink]="['/form']">Add</button>
 
 <mat-table [dataSource]="records">
-  <!-- No. Column -->
   <ng-container matColumnDef="no">
     <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
     <mat-cell *matCellDef="let record"> {{ record.no }} </mat-cell>
   </ng-container>
 
-  <!-- Nazwa Column -->
   <ng-container matColumnDef="nazwa">
     <mat-header-cell *matHeaderCellDef> Nazwa </mat-header-cell>
     <mat-cell *matCellDef="let record"> {{ record.nazwa }} </mat-cell>
   </ng-container>
 
-  <!-- Actions Column -->
   <ng-container matColumnDef="actions">
     <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
     <mat-cell *matCellDef="let record">

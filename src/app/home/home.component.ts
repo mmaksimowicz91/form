@@ -12,18 +12,13 @@ export interface Record {
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
-  records: Record[] = [
-    { no: 1, nazwa: 'Marketing Name 1' },
-    { no: 2, nazwa: 'Marketing Name 2' },
-    // ... more records ...
-  ];
+  records: Record[] = [];
 
   displayedColumns: string[] = ['no', 'nazwa', 'actions'];
 
   constructor(private router: Router) {}
 
   editRecord(record: Record) {
-    // Navigate to form with record data for editing
     this.router.navigate(['/form'], { queryParams: { no: record.no } });
   }
 
