@@ -27,3 +27,12 @@ mat-horizontal-stepper {
 .form-content {
   flex: 1; // pozwól treści formularza na zajmowanie dostępnego miejsca
 }
+
+.mat-step-header-editable .mat-step-icon-content {
+  background: none !important;
+  color: currentColor;
+}
+
+.mat-step-header-editable .mat-step-icon-content .mat-icon {
+  display: none;
+}

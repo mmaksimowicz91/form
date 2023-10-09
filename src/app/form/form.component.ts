@@ -35,12 +35,12 @@ export class FormComponent implements OnInit {
     this.definitionForm = this.fb.group({
       marketingName: ['', Validators.required],
       technicalName: ['', Validators.required],
-      description: ['', Validators.required],
-      portal: ['', Validators.required],
-      type: ['', Validators.required],
-      startDate: ['', Validators.required],
-      endDate: ['', Validators.required],
-      pricing: ['', Validators.required],
+      description: [''],
+      portal: [''],
+      type: [''],
+      startDate: [''],
+      endDate: [''],
+      pricing: [''],
       connectPromotions: [false],
       backPromotions: [false],
       products: this.fb.array([

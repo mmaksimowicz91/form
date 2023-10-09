@@ -1,7 +1,7 @@
 <div class="stepper-container">
-  <mat-vertical-stepper linear
+  <mat-vertical-stepper
     ><form [formGroup]="definitionForm">
-      <mat-step [stepControl]="definitionForm" label="Definition">
+      <mat-step [completed]="false" label="Definition">
         <div class="step-content">
           <div class="description">
             <mat-error class="error">* is required </mat-error>
@@ -39,7 +39,7 @@
             <h1>Conditions</h1>
             <mat-form-field>
               <mat-label>Portal</mat-label>
-              <mat-select formControlName="portal" required>
+              <mat-select formControlName="portal">
                 <mat-option value="chrome">Chrome</mat-option>
                 <mat-option value="firefox">Firefox</mat-option>
                 <mat-option value="opera">Opera</mat-option>
@@ -47,7 +47,7 @@
             </mat-form-field>
             <mat-form-field>
               <mat-label>Type</mat-label>
-              <mat-select formControlName="type" required>
+              <mat-select formControlName="type">
                 <mat-option value="windows">Windows</mat-option>
                 <mat-option value="mac">Mac</mat-option>
               </mat-select>
@@ -58,7 +58,6 @@
                 matInput
                 [matDatepicker]="startDatePicker"
                 formControlName="startDate"
-                required
               />
               <mat-datepicker-toggle
                 matSuffix
@@ -72,7 +71,6 @@
                 matInput
                 [matDatepicker]="endDatePicker"
                 formControlName="endDate"
-                required
               />
               <mat-datepicker-toggle
                 matSuffix
@@ -80,7 +78,7 @@
               ></mat-datepicker-toggle>
               <mat-datepicker #endDatePicker></mat-datepicker>
             </mat-form-field>
-            <mat-radio-group formControlName="pricing" required>
+            <mat-radio-group formControlName="pricing">
               <mat-radio-button value="business"
                 >Business Conditions</mat-radio-button
               >
@@ -102,7 +100,7 @@
         </div>
       </mat-step>
 
-      <mat-step label="Choose products">
+      <mat-step [completed]="false" label="Choose products">
         <div formArrayName="products" class="step-content">
           <mat-checkbox [formControlName]="0">Lorem</mat-checkbox>
           <mat-checkbox [formControlName]="1">Ipsum</mat-checkbox>
@@ -115,7 +113,7 @@
         </div>
       </mat-step>
 
-      <mat-step label="Exclude products">
+      <mat-step [completed]="false" label="Exclude products">
         <div formArrayName="excludedProducts" class="step-content">
           <mat-checkbox
             *ngFor="let productInfo of getExcludedProducts(); let i = index"
@@ -129,7 +127,7 @@
         </div>
       </mat-step>
 
-      <mat-step label="Bonus Products">
+      <mat-step [completed]="false" label="Bonus Products">
         <div class="step-content">
           <mat-form-field>
             <mat-label>Bonus Products</mat-label>
@@ -147,7 +145,7 @@
           <button mat-button matStepperNext>Next</button>
         </div>
       </mat-step>
-      <mat-step label="Product Limits">
+      <mat-step [completed]="false" label="Product Limits">
         <div class="step-content">
           <mat-radio-group aria-label="Select an option">
             <mat-label><b>Product Limits</b></mat-label>
@@ -161,7 +159,7 @@
           <button mat-button matStepperNext>Next</button>
         </div>
       </mat-step>
-      <mat-step label="Choose Clients">
+      <mat-step [completed]="false" label="Choose Clients">
         <div formArrayName="clients" class="step-content">
           <mat-checkbox [formControlName]="0">Aaron</mat-checkbox>
           <mat-checkbox [formControlName]="1">Bert</mat-checkbox>
@@ -174,7 +172,7 @@
         </div>
       </mat-step>
 
-      <mat-step label="Exclude Clients">
+      <mat-step [completed]="false" label="Exclude Clients">
         <div formArrayName="excludedClients" class="step-content">
           <mat-checkbox
             *ngFor="let clientInfo of getExcludedClients(); let i = index"
@@ -187,7 +185,7 @@
           <button mat-button matStepperNext>Next</button>
         </div>
       </mat-step>
-      <mat-step label="Summary">
+      <mat-step [completed]="false" label="Summary">
         <div class="summary" *ngIf="definitionForm.valid">
           <h1>Summary</h1>
           <h3>Description</h3>
