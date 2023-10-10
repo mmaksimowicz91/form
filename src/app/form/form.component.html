@@ -1,3 +1,9 @@
+<div class="head">
+  <h1 class="title">My Form</h1>
+  <button mat-raised-button color="primary" routerLink="/home">
+    Powrót do strony głównej
+  </button>
+</div>
 <div class="stepper-container">
   <mat-vertical-stepper
     #stepper
@@ -47,7 +53,25 @@
               </span>
               <textarea matInput formControlName="description"></textarea>
             </mat-form-field>
-            <p>Catalog promotion tutorial: Lorem ipsum...</p>
+            <p class="tutorial-title">Catalog promotion tutorial:</p>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+              reprehenderit in voluptate velit esse cillum dolore eu fugiat
+              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+              sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </p>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+              reprehenderit in voluptate velit esse cillum dolore eu fugiat
+              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+              sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </p>
           </div>
 
           <div class="conditions">
@@ -68,25 +92,21 @@
             </mat-form-field>
             <mat-form-field>
               <mat-label>Type</mat-label>
-              <span matSuffix>
-                <mat-icon
-                  matTooltip="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-                  >help_outline</mat-icon
-                >
-              </span>
+
               <mat-select formControlName="type">
                 <mat-option value="windows">Windows</mat-option>
                 <mat-option value="mac">Mac</mat-option>
               </mat-select>
-            </mat-form-field>
-            <mat-form-field>
-              <mat-label>Start Date</mat-label>
               <span matSuffix>
                 <mat-icon
                   matTooltip="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
                   >help_outline</mat-icon
                 >
               </span>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Start Date</mat-label>
+
               <input
                 matInput
                 [matDatepicker]="startDatePicker"
@@ -96,25 +116,33 @@
                 matSuffix
                 [for]="startDatePicker"
               ></mat-datepicker-toggle>
-              <mat-datepicker #startDatePicker></mat-datepicker>
-            </mat-form-field>
-            <mat-form-field>
-              <mat-label>End Date</mat-label>
               <span matSuffix>
                 <mat-icon
                   matTooltip="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
                   >help_outline</mat-icon
                 >
               </span>
+              <mat-datepicker #startDatePicker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>End Date</mat-label>
+
               <input
                 matInput
                 [matDatepicker]="endDatePicker"
                 formControlName="endDate"
               />
+
               <mat-datepicker-toggle
                 matSuffix
                 [for]="endDatePicker"
               ></mat-datepicker-toggle>
+              <span matSuffix>
+                <mat-icon
+                  matTooltip="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                  >help_outline</mat-icon
+                >
+              </span>
               <mat-datepicker #endDatePicker></mat-datepicker>
             </mat-form-field>
             <mat-radio-group formControlName="pricing">

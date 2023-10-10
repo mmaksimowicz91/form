@@ -1,3 +1,16 @@
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 40px;
+  font-style: italic;
+}
+
 .step-content {
   display: flex;
   justify-content: space-between;
@@ -13,6 +26,16 @@
   .conditions {
     flex: 1;
   }
+}
+
+.tutorial-title {
+  font-weight: bold;
+  font-size: 30px;
+}
+
+mat-form-field {
+  display: block;
+  width: 100%;
 }
 
 .step-actions {
