@@ -8,6 +8,7 @@ import { FormComponent } from './form/form.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
@@ -20,9 +21,15 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, FormComponent],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    FormComponent,
+    ConfirmationDialogComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -40,6 +47,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatNativeDateModule,
     MatTooltipModule,
     MatIconModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
