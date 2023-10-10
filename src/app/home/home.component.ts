@@ -1,11 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormService } from '../services/form.service';
-
-export interface FormRecord {
-  no: number;
-  nazwa: string;
-}
+import { FormRecord } from '../models/formRecord.interface';
 
 @Component({
   selector: 'app-home',
@@ -13,8 +9,7 @@ export interface FormRecord {
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  records: FormRecord[] = [];
-
+  public records: FormRecord[] = [];
   displayedColumns: string[] = ['no', 'nazwa', 'actions'];
 
   constructor(

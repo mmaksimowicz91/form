@@ -1,5 +1,5 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { FormRecord } from '../home/home.component';
+import { FormRecord } from '../models/formRecord.interface';
 
 @Injectable({
   providedIn: 'root',

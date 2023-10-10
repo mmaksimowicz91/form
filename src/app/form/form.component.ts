@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
-import { FormRecord } from '../home/home.component';
+
 import { FormService } from '../services/form.service';
 import { Router } from '@angular/router';
+import { FormRecord } from '../models/formRecord.interface';
 
 @Component({
   selector: 'app-form',
