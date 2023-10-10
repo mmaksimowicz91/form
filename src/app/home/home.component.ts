@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormService } from '../services/form.service';
 
@@ -17,7 +17,11 @@ export class HomeComponent implements OnInit {
 
   displayedColumns: string[] = ['no', 'nazwa', 'actions'];
 
-  constructor(private router: Router, private formService: FormService) {}
+  constructor(
+    private router: Router,
+    private formService: FormService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.getRecords();
@@ -34,11 +38,8 @@ export class HomeComponent implements OnInit {
 
   deleteRecord(record: FormRecord) {
     this.formService.deleteRecord(record.no);
-    const index = this.records.indexOf(record);
-    if (index > -1) {
-      this.records.splice(index, 1);
-    }
-    this.refreshRecords();
+    this.records = [...this.formService.getRecords()];
+    this.cdr.detectChanges();
   }
 
   refreshRecords() {
