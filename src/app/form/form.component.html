@@ -22,11 +22,6 @@
                   >help_outline</mat-icon
                 >
               </span>
-              <mat-error
-                *ngIf="myForm.get('marketingName')?.hasError('required')"
-              >
-                * is required
-              </mat-error>
             </mat-form-field>
             <mat-form-field>
               <mat-label>Technical Name</mat-label>
@@ -52,6 +47,11 @@
                 >
               </span>
               <textarea matInput formControlName="description"></textarea>
+              <mat-error
+                *ngIf="myForm.get('marketingName')?.hasError('required')"
+              >
+                * is required
+              </mat-error>
             </mat-form-field>
             <p class="tutorial-title">Catalog promotion tutorial:</p>
             <p>
@@ -192,8 +192,8 @@
         <div formArrayName="products" class="step-content options-container">
           <mat-checkbox [formControlName]="0">Lorem</mat-checkbox>
           <mat-checkbox [formControlName]="1">Ipsum</mat-checkbox>
-          <mat-checkbox [formControlName]="2">Sit</mat-checkbox>
-          <mat-checkbox [formControlName]="3">Dolor</mat-checkbox>
+          <mat-checkbox [formControlName]="2">Dolor</mat-checkbox>
+          <mat-checkbox [formControlName]="3">Sit</mat-checkbox>
           <mat-checkbox [formControlName]="4">Amet</mat-checkbox>
         </div>
         <div class="step-actions">

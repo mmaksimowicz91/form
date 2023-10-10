@@ -18,8 +18,8 @@ export class FormComponent implements OnInit {
   excludeProducts = {
     lorem: false,
     ipsum: false,
-    sit: false,
     dolor: false,
+    sit: false,
     amet: false,
   };
 
